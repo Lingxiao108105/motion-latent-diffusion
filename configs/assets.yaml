@@ -11,8 +11,8 @@ DATASET:
     ROOT: './datasets/kit-ml' # KIT directory
     SPLIT_ROOT: './datasets/kit-ml' # KIT splits directory
   HUMANML3D:
-    ROOT: './datasets/humanml3d' # HumanML3D directory
-    SPLIT_ROOT: './datasets/humanml3d' # HumanML3D splits directory
+    ROOT: '/data/gpfs/projects/punim1485/lingxiao1/mdm/motion-diffusion-model/dataset/HumanML3D' # HumanML3D directory
+    SPLIT_ROOT: '/data/gpfs/projects/punim1485/lingxiao1/mdm/motion-diffusion-model/dataset/HumanML3D' # HumanML3D splits directory
   HUMANACT12:
     ROOT: ./datasets/HumanAct12Poses
     SPLIT_ROOT: ./datasets/HumanAct12Poses
@@ -39,5 +39,5 @@ model:
 
 RENDER:
   BLENDER_PATH: '/apdcephfs/share_1227775/mingzhenzhu/jiangbiao/libs/blender-2.93.2-linux-x64/blender'
-  FACES_PATH: '/apdcephfs/share_1227775/shingxchen/AIMotion/TMOSTData/deps/smplh/smplh.faces'
+  FACES_PATH: '/data/gpfs/projects/punim1485/lingxiao1/mdm/motion-latent-diffusion/deps/smpl_models/smplh/smplh.faces'
   FOLDER: ./animations

@@ -98,7 +98,7 @@ class SMPLify3D():
             print("NO SUCH JOINTS CATEGORY!")
 
     # ---- get the man function here ------
-    def __call__(self, init_pose, init_betas, init_cam_t, j3d, conf_3d=1.0, seq_ind=0):
+    def __call__(self, init_pose, init_betas, init_cam_t, j3d, conf_3d=1.0, seq_ind=0, init_cam_t_shape=2):
         """Perform body fitting.
         Input:
             init_pose: SMPL pose estimate
@@ -154,7 +154,14 @@ class SMPLify3D():
                                 betas=betas)
         model_joints = smpl_output.joints
 
-        init_cam_t = guess_init_3d(model_joints, j3d, self.joints_category).detach()
+
+        if init_cam_t_shape == 2:
+            init_cam_t = guess_init_3d(model_joints, j3d, self.joints_category).detach()
+        elif init_cam_t_shape == 3:
+            # unsqueeze(1) from mdm
+            init_cam_t = guess_init_3d(model_joints, j3d, self.joints_category).unsqueeze(1).detach()
+        else:
+            raise Exception("init_cam_t_shape incorrect")
         camera_translation = init_cam_t.clone()
         
         preserve_pose = init_pose[:, 3:].detach().clone()

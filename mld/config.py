@@ -185,6 +185,7 @@ def parse_args(phase="train"):
         cfg.DEMO.TASK = params.task
         cfg.TEST.FOLDER = params.out_dir if params.dir else cfg.TEST.FOLDER
         cfg.DEMO.REPLICATION = params.replication
+        cfg.DEMO.BATCH_SIZE = params.batch_size
         cfg.DEMO.OUTALL = params.allinone
 
     if phase == "render":

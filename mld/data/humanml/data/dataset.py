@@ -352,6 +352,30 @@ class Text2MotionDatasetV2(data.Dataset):
                     count += 1
                     # print(name)
             except:
+                # for NTU data, token does not exist
+                if "skeleton" in name:
+                    motion = np.load(pjoin(motion_dir, name + '.npy'))
+                    if (len(motion)) < self.min_motion_length or (len(motion) >=
+                                                                200):
+                        bad_count += 1
+                        continue
+                    text_data = []
+                    with cs.open(pjoin(text_dir, name + '.txt')) as f:
+                        for line in f.readlines():
+                            text_dict = {}
+                            line_split = line.strip().split('#')
+                            caption = line_split[0]
+
+                            text_dict['caption'] = caption
+                            text_dict['tokens'] = []
+
+                            text_data.append(text_dict)
+
+                    data_dict[name] = {'motion': motion,
+                                       'length': len(motion),
+                                       'text': text_data}
+                    new_name_list.append(name)
+                    length_list.append(len(motion))
                 pass
 
         name_list, length_list = zip(
@@ -843,6 +867,22 @@ class TextOnlyDataset(data.Dataset):
                     data_dict[name] = {"text": text_data}
                     new_name_list.append(name)
             except:
+                # for NTU data, token does not exist
+                if "skeleton" in name:
+                    text_data = []
+                    with cs.open(pjoin(text_dir, name + '.txt')) as f:
+                        for line in f.readlines():
+                            text_dict = {}
+                            line_split = line.strip().split('#')
+                            caption = line_split[0]
+
+                            text_dict['caption'] = caption
+                            text_dict['tokens'] = []
+
+                            text_data.append(text_dict)
+
+                    data_dict[name] = {"text": text_data}
+                    new_name_list.append(name)
                 pass
 
         self.length_arr = np.array(length_list)

@@ -4,6 +4,17 @@ import shutil
 import sys
 from pathlib import Path
 
+
+sys.path.clear()
+my_sys_path =['', 
+ '/data/gpfs/projects/punim1485/lingxiao1/mdm/blender-2.93.18-linux-x64/2.93/python/lib/python39.zip', 
+ '/data/gpfs/projects/punim1485/lingxiao1/mdm/blender-2.93.18-linux-x64/2.93/python/lib/python3.9', 
+ '/data/gpfs/projects/punim1485/lingxiao1/mdm/blender-2.93.18-linux-x64/2.93/python/lib/python3.9/lib-dynload', 
+ '/home/lingxiao1/.local/lib/python3.9/site-packages', 
+ '/data/gpfs/projects/punim1485/lingxiao1/mdm/blender-2.93.18-linux-x64/2.93/python/lib/python3.9/site-packages']
+sys.path.extend(my_sys_path)
+
+
 import natsort
 
 try:
@@ -64,9 +75,9 @@ def render_cli() -> None:
                 paths.append(os.path.join(cfg.RENDER.DIR, item))
 
         # then render other npy
-        for item in file_list:
-            if item.endswith(".npy") and not item.endswith("_mesh.npy"):
-                paths.append(os.path.join(cfg.RENDER.DIR, item))
+        # for item in file_list:
+        #     if item.endswith(".npy") and not item.endswith("_mesh.npy"):
+        #         paths.append(os.path.join(cfg.RENDER.DIR, item))
 
         print(f"begin to render for {paths[0]}")
 
@@ -84,9 +95,10 @@ def render_cli() -> None:
                 continue
         else:
             # check existed png
-            if os.path.exists(path.replace(".npy", ".png")):
-                print(f"npy is rendered or under rendering {path}")
-                continue
+            # if os.path.exists(path.replace(".npy", ".png")):
+            #     print(f"npy is rendered or under rendering {path}")
+            #     continue
+            pass
 
         if cfg.RENDER.MODE == "video":
             frames_folder = os.path.join(
@@ -102,6 +114,9 @@ def render_cli() -> None:
                 is_mesh = mesh_detect(data)
                 if not is_mesh:
                     data = data * smplh_to_mmm_scaling_factor
+            # pick every 4th frames     
+            if cfg.RENDER.MODE == "sequence":   
+                data = data[::15]
         except FileNotFoundError:
             print(f"{path} not found")
             continue

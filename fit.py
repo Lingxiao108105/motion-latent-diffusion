@@ -67,13 +67,7 @@ print(config.SMPL_MODEL_DIR)
 # smplmodel = smplx.create(config.SMPL_MODEL_DIR,
 #                          model_type="smplh", gender="neutral", ext="npz",
 #                          batch_size=opt.batchSize).to(device)
-smplmodel = smplx.create(
-    config.SMPL_MODEL_DIR,
-    model_type="smpl",
-    gender="neutral",
-    ext="pkl",
-    batch_size=opt.batchSize,
-).to(device)
+smplmodel = smplx.create(config.SMPL_MODEL_DIR,model_type="smpl",gender="neutral",ext="pkl",batch_size=opt.batchSize,).to(device)
 
 # ## --- load the mean pose as original ----
 smpl_mean_file = config.SMPL_MEAN_FILE

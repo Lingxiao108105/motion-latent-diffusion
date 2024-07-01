@@ -294,6 +294,7 @@ def main():
         total_time = time.time() - total_time
         print(f'MLD Infer time - This/Ave batch: {infer_time/num_batch:.2f}')
         print(f'MLD Infer FPS - Total batch: {num_all_frame/infer_time:.2f}')
+        print(f'MLD Infer time - per frame: {(infer_time/num_all_frame)*1000:.2f} ms')
         print(f'MLD Infer time - This/Ave batch: {infer_time/num_batch:.2f}')
         print(f'MLD Infer FPS - Total batch: {num_all_frame/infer_time:.2f}')
         print(
