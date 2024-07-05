@@ -169,8 +169,9 @@ class MLD(BaseModel):
         dataname = cfg.TEST.DATASETS[0]
         dataname = "t2m" if dataname == "humanml3d" else dataname
         t2m_checkpoint = torch.load(
-            os.path.join(cfg.model.t2m_path, dataname,
-                         "text_mot_match/model/finest.tar"))
+            os.path.join(cfg.model.t2m_path, dataname, "text_mot_match/model/finest.tar"),
+            map_location=lambda storage, loc: storage.cuda(0)
+        )
         self.t2m_textencoder.load_state_dict(t2m_checkpoint["text_encoder"])
         self.t2m_moveencoder.load_state_dict(
             t2m_checkpoint["movement_encoder"])

@@ -1,0 +1,2 @@
+ln -s /data/gpfs/projects/punim1485/lingxiao1/mdm/motion-diffusion-model/dataset/KIT-ML \
+    /data/gpfs/projects/punim1485/lingxiao1/mdm/motion-latent-diffusion/datasets/KIT-ML
